@@ -39,6 +39,8 @@ class Kernel extends ConsoleKernel
         Commands\Live\TruncateLiveScores::class,
         Commands\Live\CheckOddsOptimizedLive::class,
         Commands\Live\ClearCheckedOddsLive::class,
+        Commands\Filter\TelegramUpdateFilter::class,
+        Commands\TruncateUsers::class,
     ];
 
     /**
@@ -55,14 +57,17 @@ class Kernel extends ConsoleKernel
         // $schedule->command('telegram:update')
         //          ->everyThirtyMinutes();
 
-        $schedule->command('check:odds:optimized:live')
-                 ->everyMinute();
+//        $schedule->command('check:odds:optimized:live')
+//                 ->everyMinute();
+//
+//        $schedule->command('telegram:update:live')
+//                 ->everyThirtyMinutes();
+//
+//        $schedule->command('clear:odds:live')
+//                 ->hourly();
 
-        $schedule->command('telegram:update:live')
-                 ->everyThirtyMinutes();
-
-        $schedule->command('clear:odds:live')
-                 ->hourly();
+        $schedule->command('telegram:update:filter')
+            ->cron('* * * * *');
     }
 
     /**
