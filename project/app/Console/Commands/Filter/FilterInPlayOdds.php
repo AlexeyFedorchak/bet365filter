@@ -139,7 +139,7 @@ class FilterInPlayOdds extends Command
             'chat_id' => $filter->chat_id,
             'text' => 
                 '<i>' . $this->convertEmoji('\xF0\x9F\x94\x94') . '</i>' . "\r\n"
-                'The odd value of ' . $this->convertOddType($oddType) 
+                . 'The odd value of ' . $this->convertOddType($oddType) 
                 . ' is more then ' . $filter->more . '.' ."\r\n"
                 . 'Th odd value is ' . $oddValue . '.' ."\r\n"
                 . '(<a href="' . $link . '">Link to the event</a>).',
@@ -166,7 +166,7 @@ class FilterInPlayOdds extends Command
             'chat_id' => $filter->chat_id,
             'text' => 
                 '<i>' . $this->convertEmoji('\xF0\x9F\x94\x94') . '</i>' . "\r\n"
-                'The odd value of ' . $this->convertOddType($oddType) 
+                . 'The odd value of ' . $this->convertOddType($oddType) 
                 . ' is less then ' . $filter->less . '.' ."\r\n"
                 . 'Th odd value is ' . $oddValue . '.' ."\r\n"
                 . '(<a href="' . $link . '">Link to the event</a>).',
