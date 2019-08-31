@@ -41,6 +41,9 @@ class Kernel extends ConsoleKernel
         Commands\Live\ClearCheckedOddsLive::class,
         Commands\Filter\TelegramUpdateFilter::class,
         Commands\TruncateUsers::class,
+        Commands\Filter\SetFilter::class,
+        Commands\Filter\TruncateUsersFilters::class,
+        Commands\Filter\FilterInPlayOdds::class,
     ];
 
     /**
@@ -51,22 +54,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('check:odds:events:realtime')
-        //          ->everyMinute();
-
-        // $schedule->command('telegram:update')
-        //          ->everyThirtyMinutes();
-
-//        $schedule->command('check:odds:optimized:live')
-//                 ->everyMinute();
-//
-//        $schedule->command('telegram:update:live')
-//                 ->everyThirtyMinutes();
-//
-//        $schedule->command('clear:odds:live')
-//                 ->hourly();
-
         $schedule->command('telegram:update:filter')
+            ->cron('* * * * *');
+
+        $schedule->command('set:filters')
             ->cron('* * * * *');
     }
 

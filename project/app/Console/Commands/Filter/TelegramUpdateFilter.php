@@ -82,9 +82,11 @@ class TelegramUpdateFilter extends Command
     {
         Log::info('###');
 
-        $telegram = new Api(env('TELEGRAM_API_KEY_LIVE'));
+        $telegram = new Api(env('TELEGRAM_API_KEY_FILTER'));
         $response = $telegram->getUpdates();
-        $usersChatIds = TelegramUser::all()->pluck('chat_id')->toArray() ?? collect();
+        $usersChatIds = TelegramUser::all()
+            ->pluck('chat_id')
+            ->toArray() ?? collect();
 
         $collected = collect($response)->pluck('message') ?? collect();
 
@@ -100,6 +102,9 @@ class TelegramUpdateFilter extends Command
                 ->first()->message_id ?? 0;
 
         foreach ($usersMessages as $key => $userMessage) {
+            if (in_array($key, $usersChatIds)) 
+                continue;
+
             if ($usersMessagesIds[$key] <= $lastCheckedMessageId)
                 continue;
 
@@ -133,6 +138,12 @@ class TelegramUpdateFilter extends Command
                 'chat_id' => $key,
                 'text' => $this->successAnswers[rand(0, 3)] ,
             ]);
+
+            CheckedTelegramMessages::updateOrCreate(
+                [
+                    'message_id' => $usersMessagesIds[$key]
+                ],
+                []);
 
             $usedKeys[] = $key;
             $this->info('Added/updated user (ID: ' . $key . ').');
