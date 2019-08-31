@@ -137,7 +137,9 @@ class FilterInPlayOdds extends Command
 
         $telegram->sendMessage([
             'chat_id' => $filter->chat_id,
-            'text' => 'The odd value of ' . $this->convertOddType($oddType) 
+            'text' => 
+                '<i>' . $this->convertEmoji('\xF0\x9F\x94\x94') . '</i>' . "\r\n"
+                'The odd value of ' . $this->convertOddType($oddType) 
                 . ' is more then ' . $filter->more . '.' ."\r\n"
                 . 'Th odd value is ' . $oddValue . '.' ."\r\n"
                 . '(<a href="' . $link . '">Link to the event</a>).',
@@ -162,7 +164,9 @@ class FilterInPlayOdds extends Command
 
         $telegram->sendMessage([
             'chat_id' => $filter->chat_id,
-            'text' => 'The odd value of ' . $this->convertOddType($oddType) 
+            'text' => 
+                '<i>' . $this->convertEmoji('\xF0\x9F\x94\x94') . '</i>' . "\r\n"
+                'The odd value of ' . $this->convertOddType($oddType) 
                 . ' is less then ' . $filter->less . '.' ."\r\n"
                 . 'Th odd value is ' . $oddValue . '.' ."\r\n"
                 . '(<a href="' . $link . '">Link to the event</a>).',
@@ -174,5 +178,16 @@ class FilterInPlayOdds extends Command
     {
         if ($oddType === '18_2') return 'Spread';
         if ($oddType === '18_3') return 'Total Points';
+    }
+
+    private function convertEmoji($EmojiUtf8Byte)
+    {
+        $pattern = '@\\\x([0-9a-fA-F]{2})@x';
+        $emoji = preg_replace_callback($pattern, function ($captures) {
+                return chr(hexdec($captures[1]));
+            },$EmojiUtf8Byte
+        );
+
+        return $emoji;
     }
 }

@@ -118,7 +118,7 @@ class SetFilter extends Command
                         . 'Event id: ' . $eventId . '.' . "\r\n"
                         . 'Odd type: ' . $oddType . '.' . "\r\n"
                         . 'More then or equal: ' . $more . '.' . "\r\n"
-                        . 'Less then or euqal: ' . $less . '.' . "\r\n",
+                        . 'Less then or equal: ' . $less . '.' . "\r\n",
             ]);
     }
 
